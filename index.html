@@ -226,10 +226,19 @@
 <h2 id="SERIALIZABLE_28_u53EF_u4E32_u884C_u5316_29"><a href="#SERIALIZABLE_28_u53EF_u4E32_u884C_u5316_29" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h2><p>最高隔离级别，会在读取每一行加锁，会导致大量超时和锁竞争问题</p>
 <p>MVCC通过在每行记录增加两列（创建版本号，过期版本号），每开始新的事务，系统版本号自动增加，事务开始时，系统版本号和查询的每行记录的版本号比较</p>
 <p><code>REPEATABLE READ</code><br>下MVCC的具体操作</p>
-<h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a><code>SELECT</code></h3><p>1.InnoDB只查找版本早于当前版本号的数据行，确保事务读取的行，在事务之前就存在或者事务本身修改的<br>2.行的过期版本未定义或大于当前事务版本，确保事务读取的行，在事务之前未被删除</p>
-<h3 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a><code>INSERT</code></h3><p>1.InnoDB为新插入的每一行保存当前系统版本号作为创建版本号</p>
-<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a><code>DELETE</code></h3><p>1.InnoDB为删除的每一行保存当前系统版本号作为过期版本号</p>
-<h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a><code>UPDATE</code></h3><p>1.InnoDB为插入一行新纪录，保存当前版本号到传教版本和过期版本</p>
+<h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a><code>SELECT</code></h3><ol>
+<li>InnoDB只查找版本早于当前版本号的数据行，确保事务读取的行，在事务之前就存在或者事务本身修改的</li>
+<li>行的过期版本未定义或大于当前事务版本，确保事务读取的行，在事务之前未被删除</li>
+</ol>
+<h3 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a><code>INSERT</code></h3><ol>
+<li>InnoDB为新插入的每一行保存当前系统版本号作为创建版本号</li>
+</ol>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a><code>DELETE</code></h3><ol>
+<li>InnoDB为删除的每一行保存当前系统版本号作为过期版本号</li>
+</ol>
+<h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a><code>UPDATE</code></h3><ol>
+<li>InnoDB为插入一行新纪录，保存当前版本号到传教版本和过期版本</li>
+</ol>
 <p>MVCC只在REPEATABLE READ 和 READ COMMITTED这两个隔离级别工作， READ UNCOMMITTED会读取未提交，最新的数据行，而不是符合当前事务版本的数据，而SERIALIZABLE会为每行加锁，版本号失去作用</p>
 
       
