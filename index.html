@@ -225,7 +225,7 @@
 <h2 id="REPEATABLE_READ_28_u53EF_u91CD_u590D_u8BFB_29"><a href="#REPEATABLE_READ_28_u53EF_u91CD_u590D_u8BFB_29" class="headerlink" title="REPEATABLE READ(可重复读)"></a>REPEATABLE READ(可重复读)</h2><p>在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复读，但是还存在幻象读,InnoDB通过MVCC解决幻读</p>
 <h2 id="SERIALIZABLE_28_u53EF_u4E32_u884C_u5316_29"><a href="#SERIALIZABLE_28_u53EF_u4E32_u884C_u5316_29" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h2><p>最高隔离级别，会在读取每一行加锁，会导致大量超时和锁竞争问题</p>
 <p>MVCC通过在每行记录增加两列（创建版本号，过期版本号），每开始新的事务，系统版本号自动增加，事务开始时，系统版本号和查询的每行记录的版本号比较</p>
-<p><code>REPEATABLE READ</code>下MVCC的具体操作</p>
+<p><code>REPEATABLE READ</code><br>下MVCC的具体操作</p>
 <p>###<code>SELECT</code><br>1.InnoDB只查找版本早于当前版本号的数据行，确保事务读取的行，在事务之前就存在或者事务本身修改的<br>2.行的过期版本未定义或大于当前事务版本，确保事务读取的行，在事务之前未被删除</p>
 <p>###<code>INSERT</code><br>1.InnoDB为新插入的每一行保存当前系统版本号作为创建版本号</p>
 <p>###<code>DELETE</code><br>1.InnoDB为删除的每一行保存当前系统版本号作为过期版本号</p>

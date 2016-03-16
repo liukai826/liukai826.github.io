@@ -15,7 +15,7 @@ REPEATABLE READ(可重复读)在同一个事务内的查询都是事务开始时
 <meta property="og:description" content="READ UNCOMMITTED(未提交读)可能读取到未提交事务修改的数据
 READ COMMITTED(提交读)只能读取已提交的数据，存在幻读，A事务读取数据，B事务同时在更新数据，B事务完成后，A再读取，前后数据不一致
 REPEATABLE READ(可重复读)在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复读，但是还存在幻象读,Inn">
-<meta property="og:updated_time" content="2016-03-16T14:27:04.304Z">
+<meta property="og:updated_time" content="2016-03-16T14:32:28.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL四种隔离级别">
 <meta name="twitter:description" content="READ UNCOMMITTED(未提交读)可能读取到未提交事务修改的数据
@@ -234,7 +234,7 @@ REPEATABLE READ(可重复读)在同一个事务内的查询都是事务开始时
 <h2 id="REPEATABLE_READ_28_u53EF_u91CD_u590D_u8BFB_29"><a href="#REPEATABLE_READ_28_u53EF_u91CD_u590D_u8BFB_29" class="headerlink" title="REPEATABLE READ(可重复读)"></a>REPEATABLE READ(可重复读)</h2><p>在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复读，但是还存在幻象读,InnoDB通过MVCC解决幻读</p>
 <h2 id="SERIALIZABLE_28_u53EF_u4E32_u884C_u5316_29"><a href="#SERIALIZABLE_28_u53EF_u4E32_u884C_u5316_29" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h2><p>最高隔离级别，会在读取每一行加锁，会导致大量超时和锁竞争问题</p>
 <p>MVCC通过在每行记录增加两列（创建版本号，过期版本号），每开始新的事务，系统版本号自动增加，事务开始时，系统版本号和查询的每行记录的版本号比较</p>
-<p><code>REPEATABLE READ</code>下MVCC的具体操作</p>
+<p><code>REPEATABLE READ</code><br>下MVCC的具体操作</p>
 <p>###<code>SELECT</code><br>1.InnoDB只查找版本早于当前版本号的数据行，确保事务读取的行，在事务之前就存在或者事务本身修改的<br>2.行的过期版本未定义或大于当前事务版本，确保事务读取的行，在事务之前未被删除</p>
 <p>###<code>INSERT</code><br>1.InnoDB为新插入的每一行保存当前系统版本号作为创建版本号</p>
 <p>###<code>DELETE</code><br>1.InnoDB为删除的每一行保存当前系统版本号作为过期版本号</p>
@@ -251,7 +251,7 @@ REPEATABLE READ(可重复读)在同一个事务内的查询都是事务开始时
         <p><span>本文标题:</span><a href="/2016/03/16/SQL四种隔离级别/">SQL四种隔离级别</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 kaka826 的个人博客">kaka826</a></p>
         <p><span>发布时间:</span>2016年03月16日 - 21时53分</p>
-        <p><span>最后更新:</span>2016年03月16日 - 22时27分</p>
+        <p><span>最后更新:</span>2016年03月16日 - 22时32分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/03/16/SQL四种隔离级别/" title="SQL四种隔离级别">http://liukai826.github.io/2016/03/16/SQL四种隔离级别/</a>
             <span class="copy-path" data-clipboard-text="原文: http://liukai826.github.io/2016/03/16/SQL四种隔离级别/　　作者: kaka826" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
